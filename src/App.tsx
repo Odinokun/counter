@@ -1,14 +1,20 @@
 import { FC, useState } from 'react';
-import { Container } from '@mui/material';
 
 import { Counter } from './components/Counter/Counter';
+import { StyledContainer } from './App.styles.ts';
 
 export const App: FC = () => {
   const [counterValue, setCounterValue] = useState<number>(0);
+  const [maxValue, setMaxValue] = useState<number>(5);
 
   return (
-    <Container fixed style={ { padding: '20px 0' } }>
-      <Counter counterValue={ counterValue } setCounterValue={ setCounterValue }/>
-    </Container>
+    <StyledContainer fixed>
+      <Counter
+        counterValue={ counterValue }
+        setCounterValue={ setCounterValue }
+        maxValue={ maxValue }
+        setMaxValue={ setMaxValue }
+      />
+    </StyledContainer>
   );
 };
