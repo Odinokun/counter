@@ -1,11 +1,14 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
+import { Container } from '@mui/material';
 
-interface IProps {}
+import { Counter } from './components/Counter/Counter';
 
-export const App: FC<IProps> = () => {
+export const App: FC = () => {
+  const [counterValue, setCounterValue] = useState<number>(0);
+
   return (
-    <div>
-      <h1>App</h1>
-    </div>
+    <Container fixed style={ { padding: '20px 0' } }>
+      <Counter counterValue={ counterValue } setCounterValue={ setCounterValue }/>
+    </Container>
   );
-}
+};
