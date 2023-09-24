@@ -4,6 +4,7 @@ import { Button } from '@mui/material';
 interface IProps {
   title: string;
   onClick: () => void;
+  disabled?: boolean;
   fullWidth?: boolean;
   variant?: 'text' | 'outlined' | 'contained';
   size?: 'small' | 'medium' | 'large';
@@ -12,8 +13,8 @@ interface IProps {
 export const MuiButton: FC<IProps> = ({ title, onClick, ...restProps }) => {
   return (
     <>
-      <Button onClick={ onClick } { ...restProps }>
-        { title }
+      <Button onClick={onClick} {...restProps}>
+        {title}
       </Button>
     </>
   );
