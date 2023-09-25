@@ -1,7 +1,8 @@
 import { FC } from 'react';
-import { Box, Grid, Typography } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 
 import { MuiButton } from '../MuiButton/MuiButton.tsx';
+import { InfoContainer } from './Info.styles.ts';
 
 interface IProps {
   counterValue: number;
@@ -19,11 +20,15 @@ export const Info: FC<IProps> = ({
   
   return (
     <Grid item xs={12} sm={6}>
-      <Box sx={{ border: '2px solid black', marginBottom: '20px', padding: '5px' }}>
-        <Typography variant="h4" align="center">
+      <InfoContainer>
+        <Typography
+          sx={counterValue >= maxValue ? { color: 'tomato' } : { color: 'black' }}
+          variant="h4"
+          align="center"
+        >
           {counterValue}
         </Typography>
-      </Box>
+      </InfoContainer>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <MuiButton
