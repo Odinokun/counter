@@ -5,18 +5,20 @@ import { MuiButton } from '../MuiButton/MuiButton.tsx';
 import { InfoContainer } from './Info.styles.ts';
 
 interface IProps {
+  startValue: number;
   counterValue: number;
   setCounterValue: (value: number) => void;
   maxValue: number;
 }
 
 export const Info: FC<IProps> = ({
+  startValue,
   counterValue,
   setCounterValue,
   maxValue,
 }) => {
   const addCounter = () => setCounterValue(++counterValue);
-  const clearCounter = () => setCounterValue(0);
+  const clearCounter = () => setCounterValue(startValue);
   
   return (
     <Grid item xs={12} sm={6}>
@@ -47,7 +49,7 @@ export const Info: FC<IProps> = ({
             fullWidth
             size="large"
             variant="contained"
-            disabled={counterValue <= 0}
+            disabled={counterValue <= startValue}
           />
         </Grid>
       </Grid>
