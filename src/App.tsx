@@ -4,19 +4,19 @@ import { Counter } from './components/Counter/Counter';
 import { StyledContainer } from './App.styles.ts';
 
 export const App: FC = () => {
-  const [startValue, setStartValue] = useState<number>(2);
+  const [minValue, setMinValue] = useState<number>(0);
   const [maxValue, setMaxValue] = useState<number>(5);
-  const [counterValue, setCounterValue] = useState<number>(startValue);
+  const [counterValue, setCounterValue] = useState<number>(minValue);
   
   return (
     <StyledContainer fixed>
       <Counter
-        counterValue={counterValue}
-        setCounterValue={setCounterValue}
-        startValue={startValue}
-        setStartValue={setStartValue}
+        minValue={minValue}
+        setMinValue={setMinValue}
         maxValue={maxValue}
         setMaxValue={setMaxValue}
+        counterValue={counterValue}
+        setCounterValue={setCounterValue}
       />
     </StyledContainer>
   );
