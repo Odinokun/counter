@@ -14,13 +14,7 @@ export const MuiInput: FC<IProps> = ({
   name,
   fullWidth,
 }) => {
-  
-  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = Number(e.target.value);
-    if (value >= 0) {
-      onChange(value);
-    }
-  };
+  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => onChange(Number(e.target.value));
   
   return (
     <TextField

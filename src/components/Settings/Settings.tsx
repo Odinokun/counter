@@ -17,6 +17,10 @@ export const Settings: FC<IProps> = ({
   maxValue,
   setMaxValue,
 }) => {
+  const onLocalStorageSetHandler = () => {
+    localStorage.setItem('minValue', JSON.stringify(minValue));
+    localStorage.setItem('maxValue', JSON.stringify(maxValue));
+  };
   
   return (
     <Grid item xs={12} sm={6}>
@@ -38,13 +42,13 @@ export const Settings: FC<IProps> = ({
           />
         </Grid>
       </Grid>
+      
       <MuiButton
-        title="Set"
+        title="Set new settings"
         fullWidth
         variant="contained"
         size="large"
-        onClick={() => {
-        }}
+        onClick={onLocalStorageSetHandler}
       />
     </Grid>
   );

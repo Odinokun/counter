@@ -4,8 +4,10 @@ import { Counter } from './components/Counter/Counter';
 import { StyledContainer } from './App.styles.ts';
 
 export const App: FC = () => {
-  const [minValue, setMinValue] = useState<number>(0);
-  const [maxValue, setMaxValue] = useState<number>(5);
+  const startMinValue = localStorage.getItem('minValue') || 0;
+  const startMaxValue = localStorage.getItem('maxValue') || 5;
+  const [minValue, setMinValue] = useState<number>(+startMinValue);
+  const [maxValue, setMaxValue] = useState<number>(+startMaxValue);
   const [counterValue, setCounterValue] = useState<number>(minValue);
   
   return (
