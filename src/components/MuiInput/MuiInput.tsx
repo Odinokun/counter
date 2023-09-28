@@ -6,6 +6,9 @@ interface IProps {
   onChange: (value: number) => void;
   name: string;
   fullWidth?: boolean;
+  error?: string | null;
+  onBlur?: () => void;
+  onErrorHandler?: () => void;
 }
 
 export const MuiInput: FC<IProps> = ({
@@ -13,8 +16,15 @@ export const MuiInput: FC<IProps> = ({
   onChange,
   name,
   fullWidth,
+  error,
+  onBlur,
+  onErrorHandler,
 }) => {
-  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => onChange(Number(e.target.value));
+  
+  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    onErrorHandler && onErrorHandler();
+    onChange(Number(e.target.value));
+  };
   
   return (
     <TextField
@@ -22,6 +32,9 @@ export const MuiInput: FC<IProps> = ({
       onChange={onChangeHandler}
       name={name}
       fullWidth={fullWidth}
+      onBlur={onBlur}
+      error={!!error}
+      helperText={error}
     />
   );
 };
