@@ -1,0 +1,16 @@
+.settings {
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding);
+  width: 50%;
+  min-width: 350px;
+  padding: var(--padding);
+  border: 2px solid var(--dark);
+  border-radius: var(--radius);
+}
+
+.settingsFooter {
+  display: flex;
+  justify-content: space-around;
+  gap: var(--padding);
+}

@@ -1,0 +1,15 @@
+.input {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.input:not(:last-child) {
+  margin-bottom: var(--padding);
+}
+
+.inputLabel {
+  margin-right: 16px;
+  white-space: nowrap;
+}

@@ -2,6 +2,7 @@ import { FC } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Typography } from '@mui/material';
+import s from './Input.module.css';
 
 type PropsType = {
   label: string;
@@ -9,11 +10,11 @@ type PropsType = {
 
 export const Input: FC<PropsType> = ({ label }) => {
   return (
-    <Box>
-      <Typography variant='button' component='span'>
+    <Box className={s.input}>
+      <Typography variant='button' component='span' className={s.inputLabel}>
         {label}
       </Typography>
-      <TextField id='outlined-basic' label={label} variant='outlined' value={0} type='number' />
+      <TextField label={label} variant='outlined' value={0} type='number' />
     </Box>
   );
 };
