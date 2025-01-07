@@ -1,0 +1,7 @@
+.app {
+  display: flex;
+  gap: var(--padding);
+  padding: var(--padding);
+  border: 2px solid var(--dark);
+  border-radius: var(--radius);
+}
