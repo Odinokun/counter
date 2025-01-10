@@ -3,12 +3,12 @@ import { useDispatch } from 'react-redux';
 import { AppRootStateType } from '../../data/store';
 import { useSelector } from 'react-redux';
 import {
-  CounterStateType,
   incrementCounterAC,
   resetCounterAC,
   toggleIncrementDisabledAC,
   toggleResetDisabledAC,
 } from '../../reducers/counter-reducer';
+import { StateType } from '../../data/state';
 
 import Box from '@mui/material/Box';
 import { Typography } from '@mui/material';
@@ -19,7 +19,7 @@ import s from './Counter.module.css';
 export const Counter: FC = () => {
   const dispatch = useDispatch();
 
-  const counter = useSelector<AppRootStateType, CounterStateType>(state => state.counter);
+  const counter = useSelector<AppRootStateType, StateType>(state => state.counter);
 
   const incrementVal = () => dispatch(incrementCounterAC(counter.currentVal));
   const resetVal = () => dispatch(resetCounterAC());

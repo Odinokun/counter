@@ -1,7 +1,6 @@
 import { beforeEach, expect, test } from 'vitest';
 import {
   counterReducer,
-  CounterStateType,
   incrementCounterAC,
   IncrementCounterACType,
   resetCounterAC,
@@ -11,8 +10,9 @@ import {
   toggleResetDisabledAC,
   ToggleResetDisabledACType,
 } from './counter-reducer';
+import { StateType } from '../data/state';
 
-let initialState: CounterStateType;
+let initialState: StateType;
 
 beforeEach(() => {
   initialState = {
@@ -26,28 +26,28 @@ beforeEach(() => {
 
 test('counter current value must be increment for 1', () => {
   const action: IncrementCounterACType = incrementCounterAC(0);
-  const endState: CounterStateType = counterReducer(initialState, action);
+  const endState: StateType = counterReducer(initialState, action);
 
   expect(endState.currentVal).toBe(1);
 });
 
 test('counter current value must be reset to start value', () => {
   const action: ResetCounterACType = resetCounterAC();
-  const endState: CounterStateType = counterReducer(initialState, action);
+  const endState: StateType = counterReducer(initialState, action);
 
   expect(endState.currentVal).toBe(0);
 });
 
 test('increment btn must be disabled', () => {
   const action: ToggleIncrementDisabledACType = toggleIncrementDisabledAC(true);
-  const endState: CounterStateType = counterReducer(initialState, action);
+  const endState: StateType = counterReducer(initialState, action);
 
   expect(endState.incDisabled).toBe(true);
 });
 
 test('reset btn must be disabled', () => {
   const action: ToggleResetDisabledACType = toggleResetDisabledAC(true);
-  const endState: CounterStateType = counterReducer(initialState, action);
+  const endState: StateType = counterReducer(initialState, action);
 
   expect(endState.resetDisabled).toBe(true);
 });
