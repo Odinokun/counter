@@ -1,3 +1,5 @@
+import { state, StateType } from '../data/state';
+
 export type IncrementCounterACType = ReturnType<typeof incrementCounterAC>;
 export type ResetCounterACType = ReturnType<typeof resetCounterAC>;
 export type ToggleIncrementDisabledACType = ReturnType<typeof toggleIncrementDisabledAC>;
@@ -8,27 +10,9 @@ type ActionsType =
   | ResetCounterACType
   | ToggleResetDisabledACType
   | ToggleIncrementDisabledACType;
+const initialState: StateType = state;
 
-export type CounterStateType = {
-  maxVal: number;
-  startVal: number;
-  currentVal: number;
-  incDisabled: boolean;
-  resetDisabled: boolean;
-};
-
-const initialState: CounterStateType = {
-  maxVal: 5,
-  startVal: 0,
-  currentVal: 0,
-  incDisabled: false,
-  resetDisabled: true,
-};
-
-export const counterReducer = (
-  state: CounterStateType = initialState,
-  action: ActionsType
-): CounterStateType => {
+export const counterReducer = (state: StateType = initialState, action: ActionsType): StateType => {
   switch (action.type) {
     case 'INCREMENT_COUNTER':
       return { ...state, currentVal: action.payload.currentVal + 1 };
