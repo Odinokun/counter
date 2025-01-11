@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { SettingsStateType } from '../../data/state';
 import { AppRootStateType } from '../../data/store';
-import { AppStateType } from '../../data/state';
 import { setSettingsAC, settingsBtnDisabledAC } from '../../reducers/settings-reducer';
 
 import Box from '@mui/material/Box';
@@ -11,7 +11,7 @@ import s from './Settings.module.css';
 
 export const Settings: FC = () => {
   const dispatch = useDispatch();
-  const settings = useSelector<AppRootStateType, AppStateType>(state => state.settings);
+  const settings = useSelector<AppRootStateType, SettingsStateType>(state => state.settings);
 
   const [maxVal, setMaxVal] = useState(settings.maxVal);
   const [startVal, setStartVal] = useState(settings.startVal);
