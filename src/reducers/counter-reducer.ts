@@ -1,27 +1,41 @@
-import { state, StateType } from '../data/state';
+import { appState, AppStateType } from '../data/state';
+import { SetSettingsACType } from './settings-reducer';
 
 export type IncrementCounterACType = ReturnType<typeof incrementCounterAC>;
 export type ResetCounterACType = ReturnType<typeof resetCounterAC>;
-export type ToggleIncrementDisabledACType = ReturnType<typeof toggleIncrementDisabledAC>;
-export type ToggleResetDisabledACType = ReturnType<typeof toggleResetDisabledAC>;
+export type IncrementBtnDisabledACType = ReturnType<typeof incrementBtnDisabledAC>;
+export type ResetBtnDisabledACType = ReturnType<typeof resetBtnDisabledAC>;
 
 type ActionsType =
   | IncrementCounterACType
   | ResetCounterACType
-  | ToggleResetDisabledACType
-  | ToggleIncrementDisabledACType;
-const initialState: StateType = state;
+  | IncrementBtnDisabledACType
+  | ResetBtnDisabledACType
+  | SetSettingsACType;
 
-export const counterReducer = (state: StateType = initialState, action: ActionsType): StateType => {
+const initialState: AppStateType = appState;
+
+export const counterReducer = (
+  state: AppStateType = initialState,
+  action: ActionsType
+): AppStateType => {
   switch (action.type) {
     case 'INCREMENT_COUNTER':
       return { ...state, currentVal: action.payload.currentVal + 1 };
     case 'RESET_COUNTER':
       return { ...state, currentVal: state.startVal };
-    case 'TOGGLE_INCREMENT_DISABLED':
-      return { ...state, incDisabled: action.payload.disabledVal };
-    case 'TOGGLE_RESET_DISABLED':
-      return { ...state, resetDisabled: action.payload.disabledVal };
+    case 'INCREMENT_BTN_DISABLED':
+      return { ...state, incBtnDisabled: action.payload.disabledVal };
+    case 'RESET_BTN_DISABLED':
+      return { ...state, resetBtnDisabled: action.payload.disabledVal };
+    //TODO add tests
+    case 'SET_SETTINGS':
+      return {
+        ...state,
+        maxVal: action.payload.maxVal,
+        startVal: action.payload.startVal,
+        currentVal: action.payload.startVal,
+      };
     default:
       return state;
   }
@@ -40,16 +54,16 @@ export const resetCounterAC = () => {
   } as const;
 };
 
-export const toggleIncrementDisabledAC = (disabledVal: boolean) => {
+export const incrementBtnDisabledAC = (disabledVal: boolean) => {
   return {
-    type: 'TOGGLE_INCREMENT_DISABLED',
+    type: 'INCREMENT_BTN_DISABLED',
     payload: { disabledVal },
   } as const;
 };
 
-export const toggleResetDisabledAC = (disabledVal: boolean) => {
+export const resetBtnDisabledAC = (disabledVal: boolean) => {
   return {
-    type: 'TOGGLE_RESET_DISABLED',
+    type: 'RESET_BTN_DISABLED',
     payload: { disabledVal },
   } as const;
 };

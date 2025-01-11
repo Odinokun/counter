@@ -1,14 +1,13 @@
 import { FC, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AppRootStateType } from '../../data/store';
-import { useSelector } from 'react-redux';
+import { AppStateType } from '../../data/state';
 import {
+  incrementBtnDisabledAC,
   incrementCounterAC,
+  resetBtnDisabledAC,
   resetCounterAC,
-  toggleIncrementDisabledAC,
-  toggleResetDisabledAC,
 } from '../../reducers/counter-reducer';
-import { StateType } from '../../data/state';
 
 import Box from '@mui/material/Box';
 import { Typography } from '@mui/material';
@@ -19,27 +18,21 @@ import s from './Counter.module.css';
 export const Counter: FC = () => {
   const dispatch = useDispatch();
 
-  const counter = useSelector<AppRootStateType, StateType>(state => state.counter);
+  const counter = useSelector<AppRootStateType, AppStateType>(state => state.counter);
 
   const incrementVal = () => dispatch(incrementCounterAC(counter.currentVal));
   const resetVal = () => dispatch(resetCounterAC());
 
   // increment button toggle disabled
   useEffect(() => {
-    if (counter.currentVal >= counter.maxVal) {
-      dispatch(toggleIncrementDisabledAC(true));
-    } else {
-      dispatch(toggleIncrementDisabledAC(false));
-    }
+    const isDisabled = counter.currentVal >= counter.maxVal;
+    dispatch(incrementBtnDisabledAC(isDisabled));
   }, [counter.currentVal, counter.maxVal, dispatch]);
 
   // reset button toggle disabled
   useEffect(() => {
-    if (counter.currentVal === counter.startVal) {
-      dispatch(toggleResetDisabledAC(true));
-    } else {
-      dispatch(toggleResetDisabledAC(false));
-    }
+    const isDisabled = counter.currentVal === counter.startVal;
+    dispatch(resetBtnDisabledAC(isDisabled));
   }, [counter.currentVal, counter.startVal, dispatch]);
 
   return (
@@ -50,8 +43,8 @@ export const Counter: FC = () => {
         </Typography>
       </Box>
       <Box className={s.counterFooter}>
-        <Btn name='+1' onClick={incrementVal} disabled={counter.incDisabled} />
-        <Btn name='Reset' onClick={resetVal} disabled={counter.resetDisabled} />
+        <Btn name='+1' onClick={incrementVal} disabled={counter.incBtnDisabled} />
+        <Btn name='Reset' onClick={resetVal} disabled={counter.resetBtnDisabled} />
       </Box>
     </Box>
   );
