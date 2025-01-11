@@ -5,6 +5,8 @@ import {
   SetSettingsACType,
   settingsBtnDisabledAC,
   SettingsBtnDisabledACType,
+  settingsModeAC,
+  SettingsModeACType,
   settingsReducer,
 } from './settings-reducer';
 
@@ -15,6 +17,7 @@ beforeEach(() => {
     maxVal: 5,
     startVal: 0,
     settingsBtnDisabled: false,
+    settingsMode: false,
   };
 });
 
@@ -29,4 +32,10 @@ test('settings button must be disabled', () => {
   const action: SettingsBtnDisabledACType = settingsBtnDisabledAC(true);
   const endState: SettingsStateType = settingsReducer(initialState, action);
   expect(endState.settingsBtnDisabled).toBeTruthy();
+});
+
+test('settings mode must be enabled', () => {
+  const action: SettingsModeACType = settingsModeAC(true);
+  const endState: SettingsStateType = settingsReducer(initialState, action);
+  expect(endState.settingsMode).toBeTruthy();
 });

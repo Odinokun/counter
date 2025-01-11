@@ -2,7 +2,11 @@ import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { SettingsStateType } from '../../data/state';
 import { AppRootStateType } from '../../data/store';
-import { setSettingsAC, settingsBtnDisabledAC } from '../../reducers/settings-reducer';
+import {
+  setSettingsAC,
+  settingsBtnDisabledAC,
+  settingsModeAC,
+} from '../../reducers/settings-reducer';
 
 import Box from '@mui/material/Box';
 import { Input } from '../Input/Input';
@@ -19,6 +23,7 @@ export const Settings: FC = () => {
   useEffect(() => {
     const isDisabled = maxVal === settings.maxVal && startVal === settings.startVal;
     dispatch(settingsBtnDisabledAC(isDisabled));
+    dispatch(settingsModeAC(!isDisabled));
   }, [maxVal, settings.maxVal, startVal, settings.startVal, dispatch]);
 
   const setSettings = () => dispatch(setSettingsAC(maxVal, startVal));

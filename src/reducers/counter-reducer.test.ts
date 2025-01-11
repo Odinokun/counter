@@ -47,7 +47,6 @@ test('reset btn must be disabled', () => {
   expect(endState.resetBtnDisabled).toBeTruthy();
 });
 
-// TODO is it correct place to the test?
 test('current counter value must be equal to start value', () => {
   const action: SetSettingsACType = setSettingsAC(200, 100);
   const endState: CounterStateType = counterReducer(initialState, action);
