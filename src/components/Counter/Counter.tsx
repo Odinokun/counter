@@ -26,9 +26,9 @@ export const Counter: FC = () => {
 
   // increment button toggle disabled
   useEffect(() => {
-    const isDisabled = counter.currentVal >= settings.maxVal;
+    const isDisabled = counter.currentVal >= settings.maxVal || settings.settingsMode;
     dispatch(incrementBtnDisabledAC(isDisabled));
-  }, [counter.currentVal, settings.maxVal, dispatch]);
+  }, [counter.currentVal, settings.maxVal, settings.settingsMode, dispatch]);
 
   // reset button toggle disabled
   useEffect(() => {
@@ -39,9 +39,20 @@ export const Counter: FC = () => {
   return (
     <Box className={s.counter}>
       <Box className={s.counterBody}>
-        <Typography className={s.counterNumber} variant='h2' component='h2'>
-          {counter.currentVal}
-        </Typography>
+        {settings.settingsMode ? (
+          <Typography className={s.counterNumber} variant='h5' component='h2'>
+            Press set to change settings
+          </Typography>
+        ) : (
+          <Typography
+            sx={counter.currentVal >= settings.maxVal ? { color: 'red' } : null}
+            className={s.counterNumber}
+            variant='h2'
+            component='h2'
+          >
+            {counter.currentVal}
+          </Typography>
+        )}
       </Box>
       <Box className={s.counterFooter}>
         <Btn name='+1' onClick={incrementVal} disabled={counter.incBtnDisabled} />

@@ -28,7 +28,7 @@ export const counterReducer = (
       return { ...state, incBtnDisabled: action.payload.disabledVal };
     case 'RESET_BTN_DISABLED':
       return { ...state, resetBtnDisabled: action.payload.disabledVal };
-    // TODO To ask where I must create test for it
+    // TODO Где я должен писать тест для этого action
     case 'SET_SETTINGS':
       return { ...state, currentVal: action.payload.startVal };
     default:
