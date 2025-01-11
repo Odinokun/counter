@@ -1,19 +1,23 @@
-export type AppStateType = {
+export type SettingsStateType = {
   maxVal: number;
   startVal: number;
-  currentVal: number;
   settingsBtnDisabled: boolean;
-  incBtnDisabled: boolean;
-  resetBtnDisabled: boolean;
-  settingsError: boolean;
 };
 
-export const appState: AppStateType = {
+export type CounterStateType = {
+  currentVal: number;
+  incBtnDisabled: boolean;
+  resetBtnDisabled: boolean;
+};
+
+export const settingsState: SettingsStateType = {
   maxVal: 5,
   startVal: 0,
-  currentVal: 0,
   settingsBtnDisabled: true,
+};
+
+export const counterState: CounterStateType = {
+  currentVal: 0,
   incBtnDisabled: false,
   resetBtnDisabled: true,
-  settingsError: false,
 };

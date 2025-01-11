@@ -1,4 +1,4 @@
-import { appState, AppStateType } from '../data/state';
+import { counterState, CounterStateType } from '../data/state';
 import { SetSettingsACType } from './settings-reducer';
 
 export type IncrementCounterACType = ReturnType<typeof incrementCounterAC>;
@@ -13,29 +13,24 @@ type ActionsType =
   | ResetBtnDisabledACType
   | SetSettingsACType;
 
-const initialState: AppStateType = appState;
+const initialState: CounterStateType = counterState;
 
 export const counterReducer = (
-  state: AppStateType = initialState,
+  state: CounterStateType = initialState,
   action: ActionsType
-): AppStateType => {
+): CounterStateType => {
   switch (action.type) {
     case 'INCREMENT_COUNTER':
       return { ...state, currentVal: action.payload.currentVal + 1 };
     case 'RESET_COUNTER':
-      return { ...state, currentVal: state.startVal };
+      return { ...state, currentVal: action.payload.startVal };
     case 'INCREMENT_BTN_DISABLED':
       return { ...state, incBtnDisabled: action.payload.disabledVal };
     case 'RESET_BTN_DISABLED':
       return { ...state, resetBtnDisabled: action.payload.disabledVal };
-    //TODO add tests
+    // TODO To ask where I must create test for it
     case 'SET_SETTINGS':
-      return {
-        ...state,
-        maxVal: action.payload.maxVal,
-        startVal: action.payload.startVal,
-        currentVal: action.payload.startVal,
-      };
+      return { ...state, currentVal: action.payload.startVal };
     default:
       return state;
   }
@@ -48,9 +43,10 @@ export const incrementCounterAC = (currentVal: number) => {
   } as const;
 };
 
-export const resetCounterAC = () => {
+export const resetCounterAC = (startVal: number) => {
   return {
     type: 'RESET_COUNTER',
+    payload: { startVal },
   } as const;
 };
 
