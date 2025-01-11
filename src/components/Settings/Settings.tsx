@@ -12,6 +12,7 @@ import Box from '@mui/material/Box';
 import { Input } from '../Input/Input';
 import { Btn } from '../Btn/Btn';
 import s from './Settings.module.css';
+import { resetBtnDisabledAC } from '../../reducers/counter-reducer';
 
 export const Settings: FC = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ export const Settings: FC = () => {
     const isDisabled = maxVal === settings.maxVal && startVal === settings.startVal;
     dispatch(settingsBtnDisabledAC(isDisabled));
     dispatch(settingsModeAC(!isDisabled));
+    dispatch(resetBtnDisabledAC(!isDisabled));
   }, [maxVal, settings.maxVal, startVal, settings.startVal, dispatch]);
 
   const setSettings = () => dispatch(setSettingsAC(maxVal, startVal));
