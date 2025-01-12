@@ -40,8 +40,13 @@ export const Counter: FC = () => {
     <Box className={s.counter}>
       <Box className={s.counterBody}>
         {settings.settingsMode ? (
-          <Typography className={s.counterNumber} variant='h5' component='h2'>
-            Press set to change settings
+          <Typography
+            sx={settings.errorMode ? { color: 'red' } : null}
+            className={s.counterNumber}
+            variant='h5'
+            component='h2'
+          >
+            {settings.errorMode ? 'Set correct value!' : 'Press set to change settings'}
           </Typography>
         ) : (
           <Typography
