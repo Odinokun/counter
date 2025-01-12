@@ -1,13 +1,8 @@
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppRootStateType } from '../../data/store';
 import { CounterStateType, SettingsStateType } from '../../data/state';
-import {
-  incrementBtnDisabledAC,
-  incrementCounterAC,
-  resetBtnDisabledAC,
-  resetCounterAC,
-} from '../../reducers/counter-reducer';
+import { incrementCounterAC, resetCounterAC } from '../../reducers/counter-reducer';
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -24,24 +19,12 @@ export const Counter: FC = () => {
   const incrementVal = () => dispatch(incrementCounterAC(counter.currentVal));
   const resetCounter = () => dispatch(resetCounterAC(settings.startVal));
 
-  // increment button toggle disabled
-  useEffect(() => {
-    const isDisabled = counter.currentVal >= settings.maxVal || settings.settingsMode;
-    dispatch(incrementBtnDisabledAC(isDisabled));
-  }, [counter.currentVal, settings.maxVal, settings.settingsMode, dispatch]);
-
-  // reset button toggle disabled
-  useEffect(() => {
-    const isDisabled = counter.currentVal === settings.startVal;
-    dispatch(resetBtnDisabledAC(isDisabled));
-  }, [counter.currentVal, settings.startVal, dispatch]);
-
   return (
     <Box className={s.counter}>
       <Box className={s.counterBody}>
         {settings.settingsMode ? (
           <Typography
-            sx={settings.errorMode ? { color: 'red' } : null}
+            sx={settings.errorMode ? { color: 'tomato' } : null}
             className={s.counterNumber}
             variant='h5'
             component='h2'
@@ -50,7 +33,7 @@ export const Counter: FC = () => {
           </Typography>
         ) : (
           <Typography
-            sx={counter.currentVal >= settings.maxVal ? { color: 'red' } : null}
+            sx={counter.currentVal >= settings.maxVal ? { color: 'tomato' } : null}
             className={s.counterNumber}
             variant='h2'
             component='h2'
@@ -60,8 +43,16 @@ export const Counter: FC = () => {
         )}
       </Box>
       <Box className={s.counterFooter}>
-        <Btn name='+1' onClick={incrementVal} disabled={counter.incBtnDisabled} />
-        <Btn name='Reset' onClick={resetCounter} disabled={counter.resetBtnDisabled} />
+        <Btn
+          name='+1'
+          onClick={incrementVal}
+          disabled={counter.currentVal >= settings.maxVal || settings.settingsMode}
+        />
+        <Btn
+          name='Reset'
+          onClick={resetCounter}
+          disabled={counter.currentVal === settings.startVal || settings.settingsMode}
+        />
       </Box>
     </Box>
   );

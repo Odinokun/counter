@@ -5,8 +5,6 @@ import {
   ErrorModeACType,
   setSettingsAC,
   SetSettingsACType,
-  settingsBtnDisabledAC,
-  SettingsBtnDisabledACType,
   settingsModeAC,
   SettingsModeACType,
   settingsReducer,
@@ -18,7 +16,6 @@ beforeEach(() => {
   initialState = {
     maxVal: 5,
     startVal: 0,
-    settingsBtnDisabled: false,
     settingsMode: false,
     errorMode: false,
   };
@@ -29,12 +26,6 @@ test('max value and start value must be added to state', () => {
   const endState: SettingsStateType = settingsReducer(initialState, action);
   expect(endState.maxVal).toBe(77);
   expect(endState.startVal).toBe(22);
-});
-
-test('settings button must be disabled', () => {
-  const action: SettingsBtnDisabledACType = settingsBtnDisabledAC(true);
-  const endState: SettingsStateType = settingsReducer(initialState, action);
-  expect(endState.settingsBtnDisabled).toBeTruthy();
 });
 
 test('settings mode must be enabled', () => {
