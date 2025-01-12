@@ -6,11 +6,12 @@ import s from './Input.module.css';
 
 type PropsType = {
   label: string;
+  error: boolean;
   value: number;
   onChange: (val: number) => void;
 };
 
-export const Input: FC<PropsType> = ({ label, value, onChange }) => {
+export const Input: FC<PropsType> = ({ label, error, value, onChange }) => {
   const [inputValue, setInputValue] = useState<number>(value);
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -26,8 +27,9 @@ export const Input: FC<PropsType> = ({ label, value, onChange }) => {
       <TextField
         onChange={onChangeHandler}
         label={label}
-        variant='outlined'
+        error={error}
         value={inputValue}
+        variant='outlined'
         type='number'
       />
     </Box>

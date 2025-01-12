@@ -3,7 +3,12 @@ import { settingsState, SettingsStateType } from '../data/state';
 export type SetSettingsACType = ReturnType<typeof setSettingsAC>;
 export type SettingsBtnDisabledACType = ReturnType<typeof settingsBtnDisabledAC>;
 export type SettingsModeACType = ReturnType<typeof settingsModeAC>;
-type ActionsType = SetSettingsACType | SettingsBtnDisabledACType | SettingsModeACType;
+export type ErrorModeACType = ReturnType<typeof errorModeAC>;
+type ActionsType =
+  | SetSettingsACType
+  | SettingsBtnDisabledACType
+  | SettingsModeACType
+  | ErrorModeACType;
 
 const initialState: SettingsStateType = settingsState;
 
@@ -18,6 +23,8 @@ export const settingsReducer = (
       return { ...state, settingsBtnDisabled: action.payload.disabledVal };
     case 'SETTINGS_MODE':
       return { ...state, settingsMode: action.payload.value };
+    case 'ERROR_MODE':
+      return { ...state, errorMode: action.payload.value };
     default:
       return state;
   }
@@ -40,6 +47,13 @@ export const settingsBtnDisabledAC = (disabledVal: boolean) => {
 export const settingsModeAC = (value: boolean) => {
   return {
     type: 'SETTINGS_MODE',
+    payload: { value },
+  } as const;
+};
+
+export const errorModeAC = (value: boolean) => {
+  return {
+    type: 'ERROR_MODE',
     payload: { value },
   } as const;
 };

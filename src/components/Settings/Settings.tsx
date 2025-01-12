@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { SettingsStateType } from '../../data/state';
 import { AppRootStateType } from '../../data/store';
 import {
+  errorModeAC,
   setSettingsAC,
   settingsBtnDisabledAC,
   settingsModeAC,
@@ -22,19 +23,37 @@ export const Settings: FC = () => {
   const [startVal, setStartVal] = useState(settings.startVal);
 
   useEffect(() => {
-    const isDisabled = maxVal === settings.maxVal && startVal === settings.startVal;
-    dispatch(settingsBtnDisabledAC(isDisabled));
-    dispatch(settingsModeAC(!isDisabled));
-    dispatch(resetBtnDisabledAC(!isDisabled));
+    const settingsMode = maxVal !== settings.maxVal || startVal !== settings.startVal;
+    dispatch(settingsModeAC(settingsMode)); // settings mode enabled
+    dispatch(settingsBtnDisabledAC(!settingsMode)); // settings button un-disabled
+    dispatch(resetBtnDisabledAC(settingsMode)); // reset button disabled
   }, [maxVal, settings.maxVal, startVal, settings.startVal, dispatch]);
+
+  useEffect(() => {
+    const errorMode = maxVal <= 0 || maxVal <= startVal || startVal < 0 || startVal >= maxVal;
+    dispatch(errorModeAC(errorMode)); // error mode enabled
+    dispatch(settingsBtnDisabledAC(errorMode || !settings.settingsMode)); // settings button disabled
+  }, [maxVal, startVal, settings.settingsMode, dispatch]);
 
   const setSettings = () => dispatch(setSettingsAC(maxVal, startVal));
 
+  const maxValError = maxVal <= 0 || maxVal <= startVal;
+  const startValError = startVal < 0 || startVal >= maxVal;
   return (
     <Box className={s.settings}>
       <Box>
-        <Input label='Max value' value={settings.maxVal} onChange={setMaxVal} />
-        <Input label='Start value' value={settings.startVal} onChange={setStartVal} />
+        <Input
+          label='Max value '
+          error={maxValError}
+          value={settings.maxVal}
+          onChange={setMaxVal}
+        />
+        <Input
+          label='Start value'
+          error={startValError}
+          value={settings.startVal}
+          onChange={setStartVal}
+        />
       </Box>
       <Box className={s.settingsFooter}>
         <Btn name='Set' onClick={setSettings} disabled={settings.settingsBtnDisabled} />
